@@ -1,0 +1,43 @@
+/* ── DashboardLayout ─────────────────────────────────── */
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #0a0a0f;
+}
+
+/* Topbar: shown only on mobile */
+.dashboard-layout__topbar {
+  display: none;
+}
+
+.dashboard-layout__body {
+  display: flex;
+  flex: 1;
+}
+
+.dashboard-layout__main {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+
+/* Desktop: sidebar visible, topbar hidden */
+@media (min-width: 769px) {
+  .dashboard-layout__topbar {
+    display: none;
+  }
+}
+
+/* Mobile: sidebar hidden, topbar shown */
+@media (max-width: 768px) {
+  .dashboard-layout__topbar {
+    display: block;
+  }
+
+  .dashboard-layout__body {
+    flex-direction: column;
+  }
+}

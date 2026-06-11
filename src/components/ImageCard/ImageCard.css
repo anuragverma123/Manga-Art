@@ -1,0 +1,118 @@
+/* ── ImageCard ───────────────────────────────────────── */
+.image-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #14141f;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  aspect-ratio: 1;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  outline: none;
+}
+
+.image-card:hover {
+  transform: scale(1.02);
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.image-card:focus-visible {
+  box-shadow: 0 0 0 2px #7c3aed;
+}
+
+/* Tall variant — spans 2 rows */
+.image-card--tall {
+  aspect-ratio: unset;
+  grid-row: span 2;
+}
+
+/* Real image */
+.image-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Placeholder */
+.image-card__placeholder {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(232, 232, 240, 0.2);
+  font-size: 11px;
+  font-style: italic;
+  padding: 16px;
+  text-align: center;
+}
+
+/* Hover overlay */
+.image-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, transparent 55%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 12px;
+}
+
+.image-card:hover .image-card__overlay {
+  opacity: 1;
+}
+
+.image-card__overlay-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.image-card__overlay-title {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0 0 2px;
+}
+
+.image-card__overlay-meta {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+/* Action buttons inside overlay */
+.image-card__overlay-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.image-card__action-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.image-card__action-btn:hover {
+  background: rgba(124, 58, 237, 0.5);
+  border-color: rgba(167, 139, 250, 0.4);
+  color: #fff;
+}
