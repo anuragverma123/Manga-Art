@@ -36,29 +36,49 @@ const Generate = () => {
     loadFile(e.dataTransfer.files?.[0]);
   };
 
-  /* ── Generate ───────────────────────────────────────── */
+/* ── Generate ───────────────────────────────────────── */
   const handleGenerate = async () => {
-    if (!selectedImage) return;
+    if (!selectedImage || loading) return;
     setLoading(true);
 
-    // TODO: replace with your real API call, e.g.:
-    // const formData = new FormData();
-    // formData.append("model", model);
-    // formData.append("image", selectedImage);
-    // const res = await generateImage(formData);
-    // setResults(prev => [res, ...prev]);
+    // 1. Pack the binary image file and model metadata into multipart data
+    const formData = new FormData();
+    formData.append("image", selectedImage); // Matches request.files['image'] in Flask
+    formData.append("model", model);
 
-    await new Promise((r) => setTimeout(r, 1500));
-    setResults((prev) => [
-      {
-        title: selectedImage.name.slice(0, 32),
-        model,
-        author: "@you",
-        imageUrl: imagePreview,
-      },
-      ...prev,
-    ]);
-    setLoading(false);
+    try {
+      // 2. Fire the asynchronous network request straight to your local Flask API
+      const response = await fetch("http://127.0.0.1:5000/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Backend process completely successful:", data);
+        
+        // 3. Inject the successful response metadata straight into the UI results grid
+        setResults((prev) => [
+          {
+            title: data.filename || selectedImage.name.slice(0, 32),
+            model: model,
+            author: "@you",
+            // Right now, we still show imagePreview. Once your ML model is ready, 
+            // we will change this to display the transformed manga image URL!
+            imageUrl: imagePreview, 
+          },
+          ...prev,
+        ]);
+      } else {
+        alert(`Server Error: ${data.error}`);
+      }
+    } catch (error) {
+      console.error("Network connection to Flask failed:", error);
+      alert("Could not connect to the backend server. Make sure Flask is running on port 5000!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   /* ── Render ─────────────────────────────────────────── */
