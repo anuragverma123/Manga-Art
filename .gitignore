@@ -1,3 +1,6 @@
+# ==========================================
+# 1. Original Frontend Layout & Caches
+# ==========================================
 # Logs
 logs
 *.log
@@ -22,3 +25,33 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# ==========================================
+# 2. Python Virtual Environment & Caches
+# ==========================================
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+
+# ==========================================
+# 3. Backend Architecture & Dynamic Uploads
+# ==========================================
+backend/__pycache__/
+backend/uploads/*
+# Keep the uploads folder shell active in Git, but ignore files inside
+!backend/uploads/.gitkeep
+
+# Force block heavy deep learning weight checkouts
+*.pth
+*.pkl
+*.zip
+backend/animegan_weights/
+
+# CRITICAL: Lock down local server secrets
+.env
+backend/.env
