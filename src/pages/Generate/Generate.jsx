@@ -64,9 +64,7 @@ const Generate = () => {
             title: data.filename || selectedImage.name.slice(0, 32),
             model: model,
             author: "@you",
-            // Right now, we still show imagePreview. Once your ML model is ready, 
-            // we will change this to display the transformed manga image URL!
-            imageUrl: imagePreview, 
+            imageUrl: data.imageUrl || imagePreview,
           },
           ...prev,
         ]);
